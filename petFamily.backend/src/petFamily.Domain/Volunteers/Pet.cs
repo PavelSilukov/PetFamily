@@ -1,4 +1,4 @@
-﻿namespace petFamily.Domain.Volunteer;
+﻿namespace petFamily.Domain.Volunteers;
 
 public class Pet
 {

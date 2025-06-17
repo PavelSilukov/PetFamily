@@ -1,27 +1,30 @@
 ﻿using CSharpFunctionalExtensions;
 
-namespace petFamily.Domain.Volunteer;
+namespace petFamily.Domain.Volunteers;
 
-public class Volunteer
+public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
 {
     private readonly List<Pet> _pets = [];
     // ef
-    private Volunteer()
+    private Volunteer(VolunteerId id)
+    : base(id)
     {
 
     }
 
-    private Volunteer(string description)
+    private Volunteer(VolunteerId vuntanteerId, string description)
+    : base(vuntanteerId)
     {
         Description = description;
     }
-    public Guid Id { get; private set; }
-    public string FIO { get; private set; }
-    public string Email { get; private set;}
+    public VolunteerId Id { get; private set; } 
+    public string FIO { get; private set; } = default!; 
+    public string Email { get; private set;}= default!;
     public string Description { get; private set; } = default!;
     
-    public int ExperienceYears { get; private set;}
+    public int ExperienceYears { get; private set;} = default!;
     public IReadOnlyList<Pet> pets => _pets;
+    public int GetNumberOfPets() => _pets.Count;
     
     public List<Pet> getPetsFoundHome()
     {
@@ -44,14 +47,14 @@ public class Volunteer
     }
     
 
-    public static Result<Volunteer> Create(string description)
+    public static Result<Volunteer> Create(VolunteerId volunteerId, string description)
     {
         if (string.IsNullOrWhiteSpace(description))
         {
             return Result.Failure<Volunteer>("Description cannot be empty");
         }
 
-        var volunteer = new Volunteer(description);
+        var volunteer = new Volunteer(volunteerId, description);
         return Result.Success(volunteer);
     }
 }
