@@ -7,6 +7,6 @@ public record VolunteerId
         Value = value;
     }
     public Guid Value { get; }
-    public static Guid NewVunteerId() => Guid.NewGuid();
+    public static Guid NewVolunteerId() => Guid.NewGuid();
     public static VolunteerId Empty => new (Guid.Empty);
 };

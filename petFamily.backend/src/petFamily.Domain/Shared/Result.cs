@@ -22,6 +22,7 @@ public class Result
     
     public static Result Success() => new (true, null);
     public static Result Failure(string? error) => new (false, error);
+    public static implicit operator Result(string error) => new (default!, error);
 
 }
 public class Result<TValue> : Result
@@ -37,4 +38,7 @@ public class Result<TValue> : Result
         : throw new InvalidOperationException("The value of a failure result can not be accessed");
     public static Result<TValue> Success(TValue value) => new (value, true, null);
     public static Result<TValue> Failure(string? error) => new (default!, false, error);
+    
+    public static implicit operator Result<TValue>(TValue value) => new (value, true, null);
+    public static implicit operator Result<TValue>(string error) => new (default!, false, error);
 }

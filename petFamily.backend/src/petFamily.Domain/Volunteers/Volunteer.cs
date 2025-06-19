@@ -1,4 +1,5 @@
-﻿using CSharpFunctionalExtensions;
+﻿using petFamily.Domain.Enum;
+using petFamily.Domain.Shared;
 
 namespace petFamily.Domain.Volunteers;
 
@@ -12,34 +13,50 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
 
     }
 
-    private Volunteer(VolunteerId vuntanteerId, string description)
-    : base(vuntanteerId)
+    private Volunteer(
+        VolunteerId volunteerId,
+        FullName fullName, 
+        Email email, 
+        PhoneNumber phoneNumber,
+        string description, 
+        int experienceYears,
+        Requisite requisite
+        )
+    : base(volunteerId)
     {
+        FullName = fullName;
+        Email = email;
+        PhoneNumber = phoneNumber;
         Description = description;
+        ExperienceYears = experienceYears;
+        Requisite = requisite;
+        
     }
     public VolunteerId Id { get; private set; } 
-    public string FIO { get; private set; } = default!; 
-    public string Email { get; private set;}= default!;
-    public string Description { get; private set; } = default!;
+    public FullName FullName { get; private set; } 
+    public PhoneNumber PhoneNumber { get; private set; }
+    public Email Email { get; private set;}
+    public string Description { get; private set; } 
     
-    public int ExperienceYears { get; private set;} = default!;
+    public int ExperienceYears { get; private set;} 
+    public Address Address { get; private set; } 
     public IReadOnlyList<Pet> pets => _pets;
     public int GetNumberOfPets() => _pets.Count;
     
     public List<Pet> getPetsFoundHome()
     {
-        return null;
+        return _pets.Where(p => p.status == Status.FoundHome).ToList();
     }
 
     public List<Pet> LookingForHome()
     {
-        return null;
+        return _pets.Where(p => p.status == Status.LookingForHome).ToList();
     }
     public List<Pet> NeedsHelp()
     {
-        return null;
+        return _pets.Where(p => p.status == Status.NeedsHelp).ToList();
     }
-    public Requisite requisite { get; set; }
+    public Requisite Requisite { get; set; }
 
     public void AddPet(Pet pet)
     {
@@ -47,14 +64,26 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
     }
     
 
-    public static Result<Volunteer> Create(VolunteerId volunteerId, string description)
+    public static Result<Volunteer> Create(
+        VolunteerId volunteerId, 
+        FullName fullName, 
+        Email email, 
+        PhoneNumber phoneNumber,
+        string description, 
+        int experienceYears,
+        Requisite requisite)
     {
         if (string.IsNullOrWhiteSpace(description))
-        {
-            return Result.Failure<Volunteer>("Description cannot be empty");
-        }
-
-        var volunteer = new Volunteer(volunteerId, description);
-        return Result.Success(volunteer);
+            return "Description cannot be empty";
+        if (experienceYears <= 0)
+            return "Experience Years cannot be negative"; 
+        return new Volunteer(
+            volunteerId, 
+            fullName, 
+            email, 
+            phoneNumber, 
+            description, 
+            experienceYears, 
+            requisite);
     }
 }

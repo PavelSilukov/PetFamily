@@ -1,4 +1,4 @@
-﻿using CSharpFunctionalExtensions;
+﻿using petFamily.Domain.Shared;
 
 namespace petFamily.Domain.Volunteers;
 
@@ -16,11 +16,11 @@ public record Requisite
     {
         if (string.IsNullOrEmpty(title))
         {
-            return Result.Failure<Requisite>("Title is not null or empty");
+            return "Title is not null or empty";
         }
         if (string.IsNullOrEmpty(description))
         {
-            return Result.Failure<Requisite>("Description) is not null or empty");
+            return "Description is not null or empty";
         }
         return new Requisite(title, description);
     }

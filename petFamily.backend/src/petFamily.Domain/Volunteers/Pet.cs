@@ -1,27 +1,51 @@
-﻿namespace petFamily.Domain.Volunteers;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Security.Cryptography.X509Certificates;
+using petFamily.Domain.Enum;
 
-public class Pet
+namespace petFamily.Domain.Volunteers;
+
+public class Pet: petFamily.Domain.Shared.Entity<PetId>
 {
-    public Pet(string nickname)
-    {
-        Nickname = nickname;
-    }
     //ef core
+    private Pet(PetId petId)
+    :base (petId)
+    {
+
+    }
+
+    private Pet(
+        PetId petId, 
+        string nickName, 
+        Age age, 
+        Gender gender, 
+        Status status, 
+        TypesOfPets typesOfPets,
+        Address address,
+        Сharacteristic)
+    :base(petId)
+    {
+        Nickname = nickName;
+    }
        
-    public Guid Id { get; private set; } 
+    public PetId Id { get; private set; }
     public string Nickname { get; private set; } 
-    // public string Description { get; private set; } = default!;
-    // public string Beed { get; private set; } = default!;
-    // public Color color { get; private set; } = default!;
-    // public Health helth { get; private set; } = default!;
-    // public string AdressLocation {get; private set;} = default!;
-    // public int Weight {get; private set;} = default!;
-    // public int Height {get; private set;} = default!;
-    // public DateTime BirthDate { get; private set; } = default!;
-    // public string PhoneNumberOwner { get; private set; } = default!;
-    // public bool IsNeutered { get; private set; } = default!;
-    // public bool isVaccinated { get; private set; } = default!;
-    // public Status status { get; private set; } = default!;
-    // public Requisite requisite { get; private set; } = default!;
-    // public DateTime DateOfCreate { get; private set; } = default!;
+    public Age Age { get; private set; } 
+    public Gender Gender { get; private set; }
+    public TypesOfPets TypesOfPets { get; private set; }
+    public string Description { get; private set; } 
+    
+    public string ConditionOfHelth { get; private set; } 
+    public Address Place {get; private set;} 
+    public Сharacteristic Сharacteristic { get; private set; }
+    public PhoneNumber PhoneNumberOwner { get; private set; } 
+    public DateTime BirthDate { get; private set; } 
+    
+    public bool IsNeutered { get; private set; } 
+    public bool isVaccinated { get; private set; } 
+    public Status status { get; private set; } 
+    public Requisite requisite { get; private set; } 
+    public DateTime DateOfCreate { get; private set; } 
+    
+    public Guid specialId { get; private set; }
+    public string BreedName { get; private set; }
 }
