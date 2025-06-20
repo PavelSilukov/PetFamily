@@ -3,5 +3,9 @@
 public enum TypesOfPets
 {
     Dog,
-    Cat
+    Cat,
+    Bird,
+    Fish,
+    Rodents,
+    Reptiles,
 }

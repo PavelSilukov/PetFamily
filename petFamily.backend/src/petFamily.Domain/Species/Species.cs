@@ -1,8 +1,69 @@
-﻿namespace petFamily.Domain.Species;
+﻿using petFamily.Domain.Enum;
+using petFamily.Domain.Shared;
+using petFamily.Domain.Species;
+using petFamily.Domain.Volunteers;
 
-public class Species
+
+namespace petFamily.Domain.Species;
+
+public class Species : petFamily.Domain.Shared.Entity<SpeciesId>
 {
-     public Guid Id { get; set; }
-     public string Name { get; set; }
-    public List<Breed> Breeds { get; set; } = default!;
+     //Ef
+     private Species(SpeciesId id)
+          :base(id)
+     {
+          
+     }
+     private Species(
+          SpeciesId specialId,
+          Parameters parameters,
+          TypesOfPets typesOfPets,
+          TypeOfFood typeOfFood,
+          string conditionsOfDetention,
+          Appointment appointment,
+          Guid breedId
+          )
+     :base(specialId)
+     {
+          Parameters = parameters;
+          TypesOfPets = typesOfPets;
+          TypeOfFood = typeOfFood;
+          ConditionsOfDetention = conditionsOfDetention;
+          BreedID = breedId;
+          Appointment = appointment;
+
+     }
+     
+     public SpeciesId Id { get; private set; }
+     public Parameters? Parameters { get; private set; }
+     public TypesOfPets TypesOfPets { get; private set; }
+
+     public TypeOfFood TypeOfFood { get; private set; }
+     //Условия содержания
+     public string? ConditionsOfDetention  { get; private set; }
+     
+     //Назначение
+     public Appointment Appointment { get; private set; }
+    
+     public Guid BreedID { get; private set; }
+
+     public static Result<Species> Create(
+          SpeciesId speciesId,
+          Parameters parameters,
+          TypesOfPets typesOfPets,
+          TypeOfFood typeOfFood,
+          string conditionsOfDetention,
+          Appointment apointment,
+          Guid breedId)
+     {
+          return new Species(
+               speciesId,
+               parameters,
+               typesOfPets,
+               typeOfFood,
+               conditionsOfDetention,
+               apointment,
+               breedId
+          );
+     }
 }

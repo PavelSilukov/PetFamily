@@ -1,16 +1,16 @@
 ﻿using System.Reflection.PortableExecutable;
 using petFamily.Domain.Shared;
 
-namespace petFamily.Domain.Volunteers;
+namespace petFamily.Domain.Species;
 
-public record Сharacteristic
+public record Parameters
 {
-    const int MaxWeightKG = 100;
-    const int MinWeightKG = 0;
-    const int MaxHeightCM = 200;
-    const int MinHeightCM = 0;
+    private const int MaxWeightKg = 100;
+    private const int MinWeightKg = 0;
+    private const int MaxHeightCm = 200;
+    private const int MinHeightCm = 0;
 
-    private Сharacteristic(int weightKg, int heightCm, string color)
+    private Parameters(int weightKg, int heightCm, string color)
     {
         Weight = weightKg;
         Height = heightCm;
@@ -21,19 +21,19 @@ public record Сharacteristic
     public int Height { get; private set; } 
     public string Color { get; private set; }
 
-    private static Result<Сharacteristic> Create(int weightKg, int heightCm, string color)
+    private static Result<Parameters> Create(int weightKg, int heightCm, string color)
     {
-        if  (weightKg < MinWeightKG)
+        if  (weightKg < MinWeightKg)
             return "Weight kg is too small";
-        if(weightKg > MaxWeightKG)
+        if(weightKg > MaxWeightKg)
             return "Weight kg is too big";
-        if(heightCm < MinHeightCM)
+        if(heightCm < MinHeightCm)
             return "Height cm is too low";
-        if(heightCm > MaxHeightCM)
+        if(heightCm > MaxHeightCm)
             return "Height cm is too height";
         if(string.IsNullOrEmpty(color))
             return "Color is empty";
-        return new Сharacteristic(weightKg, heightCm, color);
+        return new Parameters(weightKg, heightCm, color);
     }
     
 }

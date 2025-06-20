@@ -20,7 +20,8 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
         PhoneNumber phoneNumber,
         string description, 
         int experienceYears,
-        Requisite requisite
+        Requisite requisite,
+        VolunteerSocialNets volunteerSocialNets
         )
     : base(volunteerId)
     {
@@ -30,7 +31,7 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
         Description = description;
         ExperienceYears = experienceYears;
         Requisite = requisite;
-        
+        VolunteerSocialNets = volunteerSocialNets;
     }
     public VolunteerId Id { get; private set; } 
     public FullName FullName { get; private set; } 
@@ -40,21 +41,22 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
     
     public int ExperienceYears { get; private set;} 
     public Address Address { get; private set; } 
+    public VolunteerSocialNets VolunteerSocialNets{ get; private set; }
     public IReadOnlyList<Pet> pets => _pets;
     public int GetNumberOfPets() => _pets.Count;
     
     public List<Pet> getPetsFoundHome()
     {
-        return _pets.Where(p => p.status == Status.FoundHome).ToList();
+        return _pets.Where(p => p.Status == Status.FoundHome).ToList();
     }
 
     public List<Pet> LookingForHome()
     {
-        return _pets.Where(p => p.status == Status.LookingForHome).ToList();
+        return _pets.Where(p => p.Status == Status.LookingForHome).ToList();
     }
     public List<Pet> NeedsHelp()
     {
-        return _pets.Where(p => p.status == Status.NeedsHelp).ToList();
+        return _pets.Where(p => p.Status == Status.NeedsHelp).ToList();
     }
     public Requisite Requisite { get; set; }
 
@@ -71,7 +73,8 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
         PhoneNumber phoneNumber,
         string description, 
         int experienceYears,
-        Requisite requisite)
+        Requisite requisite,
+        VolunteerSocialNets volunteerSocialNets)
     {
         if (string.IsNullOrWhiteSpace(description))
             return "Description cannot be empty";
@@ -84,6 +87,7 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
             phoneNumber, 
             description, 
             experienceYears, 
-            requisite);
+            requisite,
+            volunteerSocialNets);
     }
 }
