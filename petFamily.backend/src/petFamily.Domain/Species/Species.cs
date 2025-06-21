@@ -34,7 +34,6 @@ public class Species : petFamily.Domain.Shared.Entity<SpeciesId>
 
      }
      
-     public SpeciesId Id { get; private set; }
      public Parameters? Parameters { get; private set; }
      public TypesOfPets TypesOfPets { get; private set; }
 

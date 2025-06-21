@@ -33,7 +33,6 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
         Requisite = requisite;
         VolunteerSocialNets = volunteerSocialNets;
     }
-    public VolunteerId Id { get; private set; } 
     public FullName FullName { get; private set; } 
     public PhoneNumber PhoneNumber { get; private set; }
     public Email Email { get; private set;}
@@ -45,18 +44,18 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
     public IReadOnlyList<Pet> pets => _pets;
     public int GetNumberOfPets() => _pets.Count;
     
-    public List<Pet> getPetsFoundHome()
+    public int GetQuantityPetsFoundHome()
     {
-        return _pets.Where(p => p.Status == Status.FoundHome).ToList();
+        return _pets.Count(p => p.Status == Status.FoundHome);
     }
 
-    public List<Pet> LookingForHome()
+    public int GetQuantityOfPetLookingForHome()
     {
-        return _pets.Where(p => p.Status == Status.LookingForHome).ToList();
+        return _pets.Count(p => p.Status == Status.LookingForHome);
     }
-    public List<Pet> NeedsHelp()
+    public int GetQuantityOfPetNeedsHelp()
     {
-        return _pets.Where(p => p.Status == Status.NeedsHelp).ToList();
+        return _pets.Count(p => p.Status == Status.NeedsHelp);
     }
     public Requisite Requisite { get; set; }
 

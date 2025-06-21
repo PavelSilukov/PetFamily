@@ -28,8 +28,6 @@ public class Breed : petFamily.Domain.Shared.Entity<BreedId>
         CostOfMaintenancePerYearInThousandsOfRubles = costOfMaintenancePerYearInThousandsOfRubles;
         LifeExpectancy = lefeExpectancy;
     }
-    
-    public Guid Id { get; private set; }
 
     public string Name { get; private set; } = default!;
     //Внешние характеристики
@@ -40,6 +38,7 @@ public class Breed : petFamily.Domain.Shared.Entity<BreedId>
     public LearningAbility? LearningAbility {get; private set;}
     //Стоимость содержания в год тыс. руб.
     public int? CostOfMaintenancePerYearInThousandsOfRubles{get; private set;}
+    //Продолжительность жизни
     public int? LifeExpectancy  { get; private set; }
 
     public static Result<Breed> Create(

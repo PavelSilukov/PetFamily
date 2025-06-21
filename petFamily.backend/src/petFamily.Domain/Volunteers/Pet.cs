@@ -39,8 +39,7 @@ public class Pet: petFamily.Domain.Shared.Entity<PetId>
         Requisite = requisite;
         PhoneNumberOwner = phoneNumberOwner;
     }
-       
-    public PetId Id { get; private set; }
+    
     public string Nickname { get; private set; } 
     public Age Age { get; private set; } 
     public Gender Gender { get; private set; }
