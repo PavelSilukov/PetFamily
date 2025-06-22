@@ -1,16 +1,18 @@
 ﻿using petFamily.Domain.Shared;
+using petFamily.Domain.Species;
 
-namespace petFamily.Domain.Species;
+namespace petFamily.Domain.Volunteers;
 
 public record SpecialAndBreed
 {
     public SpeciesId SpeciesId { get;}
     public BreedId BreedId { get;}
 
-    private SpecialAndBreed(SpeciesId SpeciesId, BreedId BreedId)
+    private SpecialAndBreed(SpeciesId speciesId, BreedId breedId)
     {
-       SpeciesId = SpeciesId;
-       BreedId = BreedId;
+     
+        SpeciesId = speciesId;
+       BreedId = breedId;
     }
 
     private static Result<SpecialAndBreed> Create(SpeciesId speciesId, BreedId breedId)

@@ -26,7 +26,8 @@ public class Pet: petFamily.Domain.Shared.Entity<PetId>
         PhoneNumber phoneNumberOwner,
         bool isNeutered,
         bool isVaccinated,
-        Requisite requisite
+        Requisite requisite,
+        SpecialAndBreed  specialAndBreed
         )
     :base(petId)
     {
@@ -39,6 +40,7 @@ public class Pet: petFamily.Domain.Shared.Entity<PetId>
         IsVaccinated = isVaccinated;
         Requisite = requisite;
         PhoneNumberOwner = phoneNumberOwner;
+        SpecialAndBreed = specialAndBreed;
     }
     
     public string Nickname { get; private set; } 
@@ -70,7 +72,8 @@ public class Pet: petFamily.Domain.Shared.Entity<PetId>
         PhoneNumber phoneNumberOwner,
         bool isNeutered,
         bool isVaccinated,
-        Requisite requisite
+        Requisite requisite,
+        SpecialAndBreed specialAndBreed
     )
     {
         if(string.IsNullOrWhiteSpace(nickName))
@@ -86,7 +89,8 @@ public class Pet: petFamily.Domain.Shared.Entity<PetId>
             phoneNumberOwner,
             isNeutered, 
             isVaccinated, 
-            requisite);
+            requisite,
+            specialAndBreed);
     }
 }
 
