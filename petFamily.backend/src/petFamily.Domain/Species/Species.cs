@@ -8,6 +8,7 @@ namespace petFamily.Domain.Species;
 
 public class Species : petFamily.Domain.Shared.Entity<SpeciesId>
 {
+     private readonly List<Breed> _breeds = [];
      //Ef
      private Species(SpeciesId id)
           :base(id)
@@ -29,7 +30,6 @@ public class Species : petFamily.Domain.Shared.Entity<SpeciesId>
           TypesOfPets = typesOfPets;
           TypeOfFood = typeOfFood;
           ConditionsOfDetention = conditionsOfDetention;
-          BreedID = breedId;
           Appointment = appointment;
 
      }
@@ -44,7 +44,7 @@ public class Species : petFamily.Domain.Shared.Entity<SpeciesId>
      //Назначение
      public Appointment Appointment { get; private set; }
     
-     public Guid BreedID { get; private set; }
+     public IReadOnlyList<Breed> Breeds => _breeds;
 
      public static Result<Species> Create(
           SpeciesId speciesId,

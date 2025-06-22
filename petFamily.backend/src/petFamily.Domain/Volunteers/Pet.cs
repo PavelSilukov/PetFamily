@@ -2,6 +2,7 @@
 using System.Security.Cryptography.X509Certificates;
 using petFamily.Domain.Enum;
 using petFamily.Domain.Shared;
+using petFamily.Domain.Species;
 
 namespace petFamily.Domain.Volunteers;
 
@@ -55,8 +56,8 @@ public class Pet: petFamily.Domain.Shared.Entity<PetId>
     public Requisite Requisite { get; private set; }
     public DateTime DateOfCreate => DateTime.Now;
     
-    public Guid specialId { get; private set; }
-    public string BreedName { get; private set; }
+    public SpecialAndBreed SpecialAndBreed { get; private set; }
+
 
     public static Result<Pet> Create(
         PetId petId,
