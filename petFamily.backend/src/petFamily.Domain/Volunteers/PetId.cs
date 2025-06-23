@@ -1,4 +1,6 @@
-﻿namespace petFamily.Domain.Volunteers;
+﻿using System;
+
+namespace petFamily.Domain.Volunteers;
 
 public class PetId
 {

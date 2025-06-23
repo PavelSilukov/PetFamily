@@ -1,4 +1,6 @@
-﻿namespace petFamily.Domain.Volunteers;
+﻿using System.Collections.Generic;
+
+namespace petFamily.Domain.Volunteers;
 
 public class VolunteerSocialNets
 {

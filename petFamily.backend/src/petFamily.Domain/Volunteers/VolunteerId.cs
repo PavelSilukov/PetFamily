@@ -1,4 +1,6 @@
-﻿namespace petFamily.Domain.Volunteers;
+﻿using System;
+
+namespace petFamily.Domain.Volunteers;
 
 public record VolunteerId
 {
@@ -9,4 +11,5 @@ public record VolunteerId
     public Guid Value { get; }
     public static Guid NewVolunteerId() => Guid.NewGuid();
     public static VolunteerId Empty => new (Guid.Empty);
+    public static VolunteerId Create(Guid id) => new(id);
 };

@@ -1,4 +1,6 @@
-﻿namespace petFamily.Domain.Species;
+﻿using System;
+
+namespace petFamily.Domain.Species;
 
 public record BreedId
 {

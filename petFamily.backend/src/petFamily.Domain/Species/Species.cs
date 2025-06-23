@@ -1,4 +1,6 @@
-﻿using petFamily.Domain.Enum;
+﻿using System;
+using System.Collections.Generic;
+using petFamily.Domain.Enum;
 using petFamily.Domain.Shared;
 using petFamily.Domain.Species;
 using petFamily.Domain.Volunteers;
