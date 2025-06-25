@@ -42,6 +42,7 @@ public class Pet: petFamily.Domain.Shared.Entity<PetId>
         Requisite = requisite;
         PhoneNumberOwner = phoneNumberOwner;
         SpecialAndBreed = specialAndBreed;
+        TypesOfPets = typesOfPets;
     }
     
     public string Nickname { get; private set; } 
@@ -50,7 +51,9 @@ public class Pet: petFamily.Domain.Shared.Entity<PetId>
     
     public string Description { get; private set; } 
     
-    public string? ConditionOfHelth { get; private set; } 
+    public TypesOfPets TypesOfPets {get; private set;}
+    
+    public ConditionOfHealth? ConditionOfHelth { get; private set; } 
     public Address Place {get; private set;} 
     public PhoneNumber PhoneNumberOwner { get; private set; } 
     public bool? IsNeutered { get; private set; } 
