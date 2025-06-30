@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using petFamily.Domain.PetManagement.Entities;
 using petFamily.Domain.Shared;
-using petFamily.Domain.Volunteers;
+using petFamily.Domain.Shared.IDs;
 
 namespace petFamily.Infrastructure.Configurations;
 
@@ -39,13 +40,17 @@ public class VolunteerConfiguration:IEntityTypeConfiguration<Volunteer>
         builder.ComplexProperty(v => v.Email, eb =>
             eb.Property(e => e.EmailValue)
                 .IsRequired());
+
+        builder.ComplexProperty(v => v.Description, db =>
+            db.Property(d => d.Desc)
+                .IsRequired()
+                .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH)
+                .HasColumnName("Description"));
         
-        builder.Property(v=>v.Description)
-            .IsRequired()
-            .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH);
-        
-        builder.Property(v => v.ExperienceYears)
-            .IsRequired();
+        builder.ComplexProperty(v => v.ExperienceYears, eb=>
+                eb.Property(e=>e.ExperienceYear)
+                    .IsRequired(false)
+                    .HasColumnName("ExperienceYear"));
         
         builder.ComplexProperty(v => v.Address,
             ab =>
@@ -78,10 +83,12 @@ public class VolunteerConfiguration:IEntityTypeConfiguration<Volunteer>
                 .HasColumnName("Description of Requisite");
         });
 
-
+     
         builder.HasMany(v => v.pets)
             .WithOne()
-            .HasForeignKey("VolunteerId");
+            .HasForeignKey("VolunteerId")
+            .OnDelete(DeleteBehavior.Cascade);
+        builder.Navigation(v => v.pets).AutoInclude();
             
         builder.OwnsOne(v => v.VolunteerSocialNets,
             iv =>
