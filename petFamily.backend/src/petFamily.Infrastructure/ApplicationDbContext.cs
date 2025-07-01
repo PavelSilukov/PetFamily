@@ -6,6 +6,7 @@ using petFamily.Domain.SpecialManagement.Entities;
 
 namespace petFamily.Infrastructure;
 
+
 public class ApplicationDbContext(IConfiguration configuration):DbContext
 {
     private const string DATABASE = "Database";
@@ -13,7 +14,7 @@ public class ApplicationDbContext(IConfiguration configuration):DbContext
     public DbSet<Species>Special=>Set<Species>();
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(configuration.GetConnectionString(DATABASE ));
+        optionsBuilder.UseNpgsql(configuration.GetConnectionString(DATABASE));
         optionsBuilder.UseSnakeCaseNamingConvention();
         optionsBuilder.UseLoggerFactory(CreateLoggerFactory);
 
