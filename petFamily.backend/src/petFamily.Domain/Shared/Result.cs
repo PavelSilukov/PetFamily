@@ -1,4 +1,6 @@
-﻿namespace petFamily.Domain.Shared;
+﻿using System;
+
+namespace petFamily.Domain.Shared;
 
 public class Result
 {
