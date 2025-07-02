@@ -8,9 +8,9 @@ public record ExperienceYears
     private const int MinExperienceYears = 0;
 
 
-    private ExperienceYears(int? ExperienceYear)
+    private ExperienceYears(int? experienceYear)
     {
-        this.ExperienceYear = ExperienceYear;
+        ExperienceYear = experienceYear;
     }
     
     public int? ExperienceYear  { get; private set; }

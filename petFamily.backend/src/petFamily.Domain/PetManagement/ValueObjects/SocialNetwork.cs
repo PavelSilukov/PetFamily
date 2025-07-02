@@ -4,10 +4,10 @@ namespace petFamily.Domain.PetManagement.ValueObjects;
 
 public record SocialNetwork
 {
-    private SocialNetwork(string Name, string Url)
+    private SocialNetwork(string name, string url)
     {
-        this.Name = Name;
-        this.Url = Url;
+        this.Name = name;
+        this.Url = url;
     }
     public string Name { get; }
     public string Url { get; }

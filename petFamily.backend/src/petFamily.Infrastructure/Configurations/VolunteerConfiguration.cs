@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using petFamily.Domain.PetManagement.Entities;
+using petFamily.Domain.PetManagement.Enum;
 using petFamily.Domain.Shared;
 using petFamily.Domain.Shared.IDs;
 
@@ -81,9 +82,13 @@ public class VolunteerConfiguration:IEntityTypeConfiguration<Volunteer>
                 .IsRequired()
                 .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH)
                 .HasColumnName("Description of Requisite");
+            rb.Property(r=>r.CardNumber)
+                .IsRequired()
+                .HasColumnName("Card Number");
+            rb.Property(r=>r.PaymentMethod)
+                .HasConversion(t=>t.ToString(), t => (PaymentMethod)Enum.Parse(typeof(PaymentMethod), t));
         });
-
-     
+        
         builder.HasMany(v => v.pets)
             .WithOne()
             .HasForeignKey("VolunteerId")

@@ -4,11 +4,11 @@ namespace petFamily.Domain.PetManagement.ValueObjects;
 
 public record FullName
 {
-    private FullName(string Name, string Surname, string? SecondName)
+    private FullName(string name, string surname, string? secondName)
     {
-        this.Name = Name;
-        this.Surname = Surname;
-        this.SecondName = SecondName;
+        Name = name;
+        Surname = surname;
+        SecondName = secondName;
     }
     public string Name { get; }
     public string Surname { get;}

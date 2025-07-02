@@ -7,11 +7,11 @@ public record LifeExpectancy
     private const int MIN_YEAR = 0;
     private const int MAX_YEAR = 200;
 
-    private LifeExpectancy(int lifeExpectancy)
+    private LifeExpectancy(int expectancy)
     {
-        this.lifeExpectancy  = lifeExpectancy ;
+        Expectancy = expectancy;
     }
-    public int lifeExpectancy  { get;}
+    public int Expectancy  { get;}
 
     public static Result<LifeExpectancy> Create(int year)
     {

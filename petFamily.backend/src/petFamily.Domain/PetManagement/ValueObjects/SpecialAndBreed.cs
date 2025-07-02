@@ -5,10 +5,10 @@ namespace petFamily.Domain.PetManagement.ValueObjects;
 
 public record SpecialAndBreed
 {
-    public SpecialAndBreed(SpeciesId SpeciesId, BreedId BreedId)
+    public SpecialAndBreed(SpeciesId speciesId, BreedId breedId)
     {
-        this.SpeciesId = SpeciesId;
-        this.BreedId = BreedId;
+        SpeciesId = speciesId;
+        BreedId = breedId;
     }
 
     public SpeciesId SpeciesId { get; }

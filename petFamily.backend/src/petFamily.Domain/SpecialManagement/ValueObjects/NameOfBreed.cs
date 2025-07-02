@@ -4,9 +4,9 @@ namespace petFamily.Domain.SpecialManagement.ValueObjects;
 
 public record NameOfBreed
 {
-    private NameOfBreed(string Name )
+    private NameOfBreed(string name )
     {
-        this.Name = Name ;
+        Name = name ;
     }
     //Окрас
     public string Name { get;}

@@ -9,11 +9,11 @@ public record Parameters
     private const int MaxHeightCm = 200;
     private const int MinHeightCm = 0;
 
-    private Parameters(int Weight, int Height, string Color)
+    private Parameters(int weight, int height, string color)
     {
-        this.Weight = Weight;
-        this.Height = Height;
-        this.Color = Color;
+        Weight = weight;
+        Height = height;
+        Color = color;
     }
     
     public int Weight  { get; private set; }

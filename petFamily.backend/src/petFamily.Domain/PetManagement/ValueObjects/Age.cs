@@ -5,7 +5,7 @@ namespace petFamily.Domain.PetManagement.ValueObjects;
 public record Age
 {
     private const int MIN_YEAR = 0;
-    private const int MAX_YEAR = 50;
+    private const int MAX_YEAR = 150;
     private const int MIN_MONTH = 0;
     private const int MAX_MONTH = 12;
 

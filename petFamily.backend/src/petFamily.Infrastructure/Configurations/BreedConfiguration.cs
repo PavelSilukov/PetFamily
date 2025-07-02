@@ -44,7 +44,7 @@ public class BreedConfiguration:IEntityTypeConfiguration<Breed>
                 t => (LearningAbility)Enum.Parse(typeof(LearningAbility), t));
         //LefeExpectancy
         builder.ComplexProperty(b => b.LifeExpectancy, lb =>
-            lb.Property(l => l.lifeExpectancy)
+            lb.Property(l => l.Expectancy)
                 .IsRequired()
                 .HasColumnName("year"));
     }

@@ -4,9 +4,9 @@ namespace petFamily.Domain.PetManagement.ValueObjects;
 
 public record ConditionOfHealth
 {
-    private ConditionOfHealth(string Description )
+    private ConditionOfHealth(string description )
     {
-        this.Description = Description ;
+        Description = description ;
     }
     public string Description { get; }
 

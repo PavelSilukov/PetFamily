@@ -4,9 +4,9 @@ namespace petFamily.Domain.PetManagement.ValueObjects;
 
 public record NickName
 {
-    private NickName(string Name)
+    private NickName(string name)
     {
-        this.Name = Name;
+        Name = name;
     }
    
     public string Name { get;}

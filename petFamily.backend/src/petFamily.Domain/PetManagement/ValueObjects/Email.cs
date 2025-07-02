@@ -5,19 +5,18 @@ namespace petFamily.Domain.PetManagement.ValueObjects;
 
 public class Email
 {
-    public string EmailValue { get; }
-    private const string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+-/=?^_{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$ ";
-
-    private Email(string EmailValue)
+    private Email(string emailValue)
     {
-        this.EmailValue= EmailValue;
+        EmailValue = emailValue;
     }
-
+    public string EmailValue { get; }
+    private const string EmailRegex = @"^[a-zA-Z0-9.!#$%&'*+-/=?^_{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$ ";
+    
     public static Result<Email> Create(string input)
     {
         if  (string.IsNullOrEmpty(input))
             return "Number cannot be null or empty";
-        if(Regex.IsMatch(input, emailRegex) == false)
+        if(Regex.IsMatch(input, EmailRegex) == false)
             return "Invalid phone number";
         return new Email(input);
     }

@@ -11,9 +11,9 @@ public record Gender
    
     public string Value { get; }
 
-    private Gender(string Value)
+    private Gender(string value)
     {
-        this.Value = Value;
+        Value = value;
     }
 
     public static Result<Gender> Create(string input)

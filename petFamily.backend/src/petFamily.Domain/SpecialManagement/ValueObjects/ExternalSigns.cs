@@ -4,13 +4,13 @@ namespace petFamily.Domain.SpecialManagement.ValueObjects;
 
 public record ExternalSigns
 {
-    private ExternalSigns(string SpecialFeatures)
+    private ExternalSigns(string? specialFeatures)
     {
-        this.SpecialFeatures = SpecialFeatures;
+        SpecialFeatures = specialFeatures;
     }
     public string? SpecialFeatures { get; }
 
-    private static Result<ExternalSigns> Create(string specialFeatures)
+    private static Result<ExternalSigns> Create(string? specialFeatures)
     {
         return new ExternalSigns(specialFeatures);
     }

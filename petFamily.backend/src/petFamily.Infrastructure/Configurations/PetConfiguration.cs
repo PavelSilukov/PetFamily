@@ -88,16 +88,21 @@ public class PetConfiguration:IEntityTypeConfiguration<Pet>
             .IsRequired();
         
         //Requisite
-        builder.ComplexProperty(p => p.Requisite, rb =>
+        builder.ComplexProperty(v => v.Requisite, rb =>
         {
             rb.Property(r => r.Title)
                 .IsRequired()
                 .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH)
-                .HasColumnName("Title");
+                .HasColumnName("Name of Requisite");
             rb.Property(r => r.Description)
                 .IsRequired()
                 .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH)
-                .HasColumnName("Description");
+                .HasColumnName("Description of Requisite");
+            rb.Property(r=>r.CardNumber)
+                .IsRequired()
+                .HasColumnName("Card Number");
+            rb.Property(r=>r.PaymentMethod)
+                .HasConversion(t=>t.ToString(), t => (PaymentMethod)Enum.Parse(typeof(PaymentMethod), t));
         });
         
         builder.OwnsOne(p => p.SpecialAndBreed, sb =>
