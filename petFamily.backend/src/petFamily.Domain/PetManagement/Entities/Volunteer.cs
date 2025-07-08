@@ -15,7 +15,7 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
 
     }
 
-    private Volunteer(
+    public Volunteer(
         VolunteerId volunteerId,
         FullName fullName, 
         Email email, 

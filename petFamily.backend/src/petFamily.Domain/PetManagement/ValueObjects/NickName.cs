@@ -12,7 +12,7 @@ public record NickName
     public string Name { get;}
     //
 
-    private static Result<NickName> Create(string nickName)
+    public static Result<NickName> Create(string nickName)
     {
         if(string.IsNullOrWhiteSpace(nickName))
             return "NickName cannot be null or empty";

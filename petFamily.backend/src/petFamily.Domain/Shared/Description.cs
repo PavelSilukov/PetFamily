@@ -11,7 +11,7 @@ public record Description
     public string Desc { get;}
     //
 
-    private static Result<Description> Create(string description)
+    public static Result<Description> Create(string description)
     {
         if(string.IsNullOrWhiteSpace(description)||description.Length > MaxLength)
             return "NickName cannot be null or empty";
