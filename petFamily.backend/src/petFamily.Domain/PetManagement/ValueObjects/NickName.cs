@@ -1,4 +1,5 @@
-﻿using petFamily.Domain.Shared;
+﻿using CSharpFunctionalExtensions;
+using petFamily.Domain.Shared;
 
 namespace petFamily.Domain.PetManagement.ValueObjects;
 
@@ -12,10 +13,10 @@ public record NickName
     public string Name { get;}
     //
 
-    public static Result<NickName> Create(string nickName)
+    public static Result<NickName, Error> Create(string nickName)
     {
         if(string.IsNullOrWhiteSpace(nickName))
-            return "NickName cannot be null or empty";
+            return Errors.General.ValueIsInvalid("NickName");
         return new NickName(nickName);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using CSharpFunctionalExtensions;
 
 namespace petFamily.Domain.Shared;
 
@@ -12,12 +13,11 @@ public record PhoneNumber
         this.Number = Number;
     }
 
-    public static Result<PhoneNumber> Create(string phoneNumber)
+    public static Result<PhoneNumber, Error> Create(string phoneNumber)
     {
-        if  (string.IsNullOrEmpty(phoneNumber))
-            return "Number cannot be null or empty";
-        if(Regex.IsMatch(phoneNumber, phoneRegex) == false)
-            return "Invalid phone number";
+        if  (string.IsNullOrEmpty(phoneNumber)||Regex.IsMatch(phoneNumber, phoneRegex) == false)
+            return Errors.General.ValueIsInvalid("Phone Number");
+ 
         return new PhoneNumber(phoneNumber);
     }
 }

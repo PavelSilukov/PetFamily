@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using petFamily.Application;
+using petFamily.Application.Volunteers;
+using petFamily.Application.Volunteers.CreateVolunteer;
 using petFamily.Infrastructure;
+using petFamily.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +15,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ApplicationDbContext>();
+
+builder.Services
+    .AddInfrastructure()
+    .AddApplication();
+
 
 var app = builder.Build();
 

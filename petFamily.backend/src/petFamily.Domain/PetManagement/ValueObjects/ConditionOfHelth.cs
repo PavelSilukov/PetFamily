@@ -1,20 +1,22 @@
-﻿using petFamily.Domain.Shared;
+﻿using CSharpFunctionalExtensions;
+using petFamily.Domain.Shared;
 
 namespace petFamily.Domain.PetManagement.ValueObjects;
 
 public record ConditionOfHealth
 {
-    private ConditionOfHealth(string description )
+    public string Value { get; }
+    private ConditionOfHealth(string value)
     {
-        Description = description ;
+       Value = value;
     }
-    public string Description { get; }
+   
 
-    public static Result<ConditionOfHealth> Create(string description)
+    public static Result<ConditionOfHealth, Error> Create(string value)
     {
-        if (string.IsNullOrEmpty(description))
-            return "Description or health not be null or empty";
+        if (string.IsNullOrEmpty(value))
+            return Errors.General.ValueIsInvalid("Condition Of Health");
 
-        return new ConditionOfHealth(description);
+        return new ConditionOfHealth(value);
     }
 }

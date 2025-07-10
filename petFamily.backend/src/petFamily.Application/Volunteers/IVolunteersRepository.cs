@@ -2,7 +2,7 @@
 using petFamily.Domain.Shared;
 using petFamily.Domain.Shared.IDs;
 
-namespace petFamily.Application.Voluntreers;
+namespace petFamily.Application.Volunteers;
 
 public interface IVolunteersRepository
 {

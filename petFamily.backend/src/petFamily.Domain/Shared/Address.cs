@@ -1,4 +1,6 @@
-﻿namespace petFamily.Domain.Shared;
+﻿using CSharpFunctionalExtensions;
+
+namespace petFamily.Domain.Shared;
 
 public record Address
 {
@@ -15,16 +17,16 @@ public record Address
         this.NumberHouse = NumberHouse;
     }
 
-    public static Result<Address> Create(string country, string city, string street, int numberHouse)
+    public static Result<Address, Error> Create(string country, string city, string street, int numberHouse)
     {
         if (string.IsNullOrWhiteSpace(country))
-            return "Country is not null or empty";
+            return Errors.General.ValueIsInvalid("Country");
         if (string.IsNullOrWhiteSpace(city))
-            return "City is not null or empty";
+            return Errors.General.ValueIsInvalid("City");
         if (string.IsNullOrWhiteSpace(street))
-            return "Street is not null or empty";
+            return Errors.General.ValueIsInvalid("Street");
         if (numberHouse <= 0)
-            return "NumberHouse is not greater than or equal to zero";
+            return Errors.General.ValueIsInvalid("Number house");
         
         
         return new Address(country, city, street, numberHouse);

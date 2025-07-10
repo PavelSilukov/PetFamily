@@ -1,10 +1,11 @@
 ﻿using CSharpFunctionalExtensions;
+using petFamily.Application.Voluntreers.CreateVolunteer;
 using petFamily.Domain.PetManagement.Entities;
 using petFamily.Domain.PetManagement.ValueObjects;
 using petFamily.Domain.Shared;
 using petFamily.Domain.Shared.IDs;
 
-namespace petFamily.Application.Voluntreers.CreateVolunteer;
+namespace petFamily.Application.Volunteers.CreateVolunteer;
 
 public class CreateVolunteerHandler
 {
@@ -14,7 +15,7 @@ public class CreateVolunteerHandler
         _repository = volunteersRepository;
     }
     
-    public async Task<Result<Guid, string>> Handle(
+    public async Task<Result<Guid, Error>> Handle(
         CreateVolunteerRequest request,
         CancellationToken cancellationToken = default
     )
@@ -80,7 +81,7 @@ public class CreateVolunteerHandler
         );
         
         await _repository.Add(volunteer, cancellationToken);
-        return volunteer.Id.Value;
+        return (Guid)volunteer.Id;
     }
 }
     

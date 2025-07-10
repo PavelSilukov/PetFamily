@@ -1,4 +1,5 @@
-﻿using petFamily.Domain.PetManagement.Enum;
+﻿using CSharpFunctionalExtensions;
+using petFamily.Domain.PetManagement.Enum;
 using petFamily.Domain.Shared;
 
 namespace petFamily.Domain.PetManagement.ValueObjects;
@@ -17,20 +18,20 @@ public record Requisite
         this.CardNumber = CardNumber;
         this.PaymentMethod = PaymentMethod;
     }
-    public static Result<Requisite> Create(string title, string description, int cardNumber, PaymentMethod paymentMethod)
+    public static Result<Requisite, Error> Create(string title, string description, int cardNumber, PaymentMethod paymentMethod)
     {
         if (string.IsNullOrEmpty(title))
         {
-            return "Title is not null or empty";
+            return Errors.General.ValueIsInvalid("Title");
         }
         if (string.IsNullOrEmpty(description))
         {
-            return "Description is not null or empty";
+            return Errors.General.ValueIsInvalid("Description");
         }
 
         if (cardNumber != NUMBER_OF_DIGITS_ON_BANK_CARD)
         {
-            return "Invalid card number";
+            return Errors.General.ValueIsInvalid("cardNumber");
         }
         return new Requisite(title, description, cardNumber, paymentMethod);
     }
