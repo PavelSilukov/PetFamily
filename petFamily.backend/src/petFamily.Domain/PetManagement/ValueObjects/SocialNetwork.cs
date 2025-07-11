@@ -7,8 +7,8 @@ public record SocialNetwork
 {
     private SocialNetwork(string name, string url)
     {
-        this.Name = name;
-        this.Url = url;
+        Name = name;
+        Url = url;
     }
     public string Name { get; }
     public string Url { get; }

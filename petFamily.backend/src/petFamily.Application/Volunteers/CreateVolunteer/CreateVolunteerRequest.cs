@@ -1,4 +1,5 @@
-﻿using petFamily.Domain.PetManagement.Enum;
+﻿using petFamily.Application.Dtos;
+using petFamily.Domain.PetManagement.Enum;
 
 namespace petFamily.Application.Voluntreers.CreateVolunteer;
 
@@ -14,10 +15,5 @@ public record CreateVolunteerRequest(
     string City,
     string Street,
     int NumberHouse,
-    string TitleRequesite,
-    string DescriptionRequesite,
-    int CardNumber,
-    PaymentMethod PaymentMethod,
-    string NameSocialNet,
-    string UrlSocialNet
-    );
+    IEnumerable<SocialNetsDto>  SocialNets,
+    IEnumerable<RequisiteDto>  Requisites);

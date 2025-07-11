@@ -5,9 +5,9 @@ namespace petFamily.API.Extentions;
 
 public static class ResponseExtentions
 {
-    public static ActionResult ToResponse(this Result<T> result)
+    public static ActionResult ToResponse(this Error error)
     {
-        var statusCode = result.Error switch
+        var statusCode = error.Type switch
         {
             ErrorType.Validation => StatusCodes.Status400BadRequest,
             ErrorType.NotFound => StatusCodes.Status404NotFound,

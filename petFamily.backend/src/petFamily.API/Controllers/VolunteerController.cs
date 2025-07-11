@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Mvc;
 using petFamily.API.Extentions;
+using petFamily.API.Response;
 using petFamily.Application.Volunteers.CreateVolunteer;
 using petFamily.Application.Voluntreers.CreateVolunteer;
 using petFamily.Domain.PetManagement.ValueObjects;
@@ -24,8 +25,8 @@ public class VolunteerController : ControllerBase
 
         if (result.IsFailure)
             return result.Error.ToResponse();
-        return Ok(result.Value);
-        
+        return Ok(Envelope.Ok(result.Value));
+
     }
 
 }
