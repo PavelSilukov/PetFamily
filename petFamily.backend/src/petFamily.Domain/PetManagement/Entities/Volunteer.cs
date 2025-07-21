@@ -8,6 +8,7 @@ namespace petFamily.Domain.PetManagement.Entities;
 public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
 {
     private readonly List<Pet> _pets = [];
+
     // ef
     private Volunteer(VolunteerId id)
     : base(id)
@@ -23,8 +24,8 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
         Description description, 
         ExperienceYears experienceYears,
         Address address,
-        Requisite requisite,
-        VolunteerSocialNets volunteerSocialNets
+        SocialNetList socialNets, 
+        RequisiteList requisites
         )
     : base(volunteerId)
     {
@@ -34,8 +35,8 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
         Description = description;
         ExperienceYears = experienceYears;
         Address = address;
-        Requisite = requisite;
-        VolunteerSocialNets = volunteerSocialNets;
+        SocialNetList = socialNets;
+        RequisiteList = requisites;
     }
     public FullName FullName { get; private set; } 
     public PhoneNumber PhoneNumber { get; private set; }
@@ -44,7 +45,8 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
     
     public ExperienceYears ExperienceYears { get; private set;} 
     public Address Address { get; private set; } 
-    public VolunteerSocialNets VolunteerSocialNets{ get; private set; }
+    public SocialNetList SocialNetList{ get; private set; }
+    public RequisiteList RequisiteList { get;}
     public IReadOnlyList<Pet> pets => _pets;
     public int GetNumberOfPets() => _pets.Count;
     
@@ -61,7 +63,6 @@ public class Volunteer : petFamily.Domain.Shared.Entity<VolunteerId>
     {
         return _pets.Count(p => p.Status == Status.NeedsHelp);
     }
-    public Requisite Requisite { get; set; }
 
     public void AddPet(Pet pet)
     {

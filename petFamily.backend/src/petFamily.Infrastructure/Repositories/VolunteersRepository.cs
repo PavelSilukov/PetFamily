@@ -3,7 +3,6 @@ using petFamily.Application.Volunteers;
 using petFamily.Domain.PetManagement.Entities;
 using petFamily.Domain.Shared;
 using petFamily.Domain.Shared.IDs;
-using petFamily.Application.Voluntreers;
 namespace petFamily.Infrastructure.Repositories;
 
 public class VolunteersRepository : IVolunteersRepository

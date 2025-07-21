@@ -1,5 +1,4 @@
 ﻿using CSharpFunctionalExtensions;
-using petFamily.Application.Voluntreers.CreateVolunteer;
 using petFamily.Domain.PetManagement.Entities;
 using petFamily.Domain.PetManagement.ValueObjects;
 using petFamily.Domain.Shared;
@@ -45,29 +44,35 @@ public class CreateVolunteerHandler
         if (experinceYearsResult.IsFailure)
             return experinceYearsResult.Error;
 
-        var addressResult = Address.Create(request.Country, request.City, request.Street, request.NumberHouse);
+        var addressResult = Address.Create(
+            request.Country, request.City,
+            request.Street, 
+            request.NumberHouse);
         if (addressResult.IsFailure)
             return addressResult.Error;
-
-        var requisiteResult = Requisite.Create(
-            request.TitleRequesite,
-            request.DescriptionRequesite,
-            request.CardNumber,
-            request.PaymentMethod);
-        if (requisiteResult.IsFailure)
-            return requisiteResult.Error;
-
-        var socialNetworkResult = SocialNetwork.Create(request.NameSocialNet, request.UrlSocialNet);
-        if (socialNetworkResult.IsFailure)
-            return socialNetworkResult.Error;
-
-        var volanteerSocial = new VolunteerSocialNets();
-        volanteerSocial.SocialNetworks.Add(socialNetworkResult.Value);
-
-
-        if (socialNetworkResult.IsFailure)
-            return socialNetworkResult.Error;
-
+        
+        var socialNets = new List<SocialNet>();
+        var socialNetsResult = request.SocialNets
+            .Select((x => SocialNet.Create(x.Name, x.Url)));
+        foreach (var sn in socialNetsResult)
+        {
+            if(sn.IsFailure)
+                return sn.Error;
+            socialNets.Add(sn.Value);
+        }
+         
+     
+        var requisites = new List<Requisite>();
+        var requisiteResult = request.Requisites
+            .Select((x => Requisite.Create(x.Title, x.Description, x.CardNumber, x.PaymentMethod)));
+        foreach (var r in requisiteResult)
+        {
+            if(r.IsFailure)
+                return r.Error;
+            requisites.Add(r.Value);
+        }
+        
+        
         var volunteer = new Volunteer(
             volunteerId,
             fullnameResult.Value,
@@ -76,8 +81,8 @@ public class CreateVolunteerHandler
             descriptionResult.Value,
             experinceYearsResult.Value,
             addressResult.Value,
-            requisiteResult.Value,
-            volanteerSocial
+            new SocialNetList(socialNets),
+            new RequisiteList(requisites)
         );
         
         await _repository.Add(volunteer, cancellationToken);

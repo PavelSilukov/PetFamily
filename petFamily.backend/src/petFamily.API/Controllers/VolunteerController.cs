@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using petFamily.API.Extentions;
 using petFamily.API.Response;
 using petFamily.Application.Volunteers.CreateVolunteer;
-using petFamily.Application.Voluntreers.CreateVolunteer;
-using petFamily.Domain.PetManagement.ValueObjects;
-using petFamily.Domain.Shared;
-
 
 namespace petFamily.API.Controllers;
 

@@ -1,3 +1,9 @@
-﻿namespace petFamily.Application.Dtos;
+﻿using petFamily.Domain.PetManagement.Enum;
 
-public record RequisiteDto(string Title, string Description, int CardNumber);
+namespace petFamily.Application.Dtos;
+
+public record RequisiteDto(
+    string Title, 
+    string Description, 
+    string CardNumber, 
+    PaymentMethod PaymentMethod);
