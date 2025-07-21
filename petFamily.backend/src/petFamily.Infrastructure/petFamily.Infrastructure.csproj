@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\petFamily.Application\petFamily.Application.csproj" />
       <ProjectReference Include="..\petFamily.Domain\petFamily.Domain.csproj" />
     </ItemGroup>
 
@@ -15,6 +16,10 @@
       <PackageReference Include="EntityFrameworkCore.NamingConventions" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations\" />
     </ItemGroup>
 
 </Project>

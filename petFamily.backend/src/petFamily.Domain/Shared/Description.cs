@@ -1,8 +1,9 @@
-﻿namespace petFamily.Domain.Shared;
+﻿using CSharpFunctionalExtensions;
+
+namespace petFamily.Domain.Shared;
 
 public record Description
 {
-    private const int MaxLength = 200;
     private Description(string Desc)
     {
         this.Desc = Desc;
@@ -11,10 +12,10 @@ public record Description
     public string Desc { get;}
     //
 
-    private static Result<Description> Create(string description)
+    public static Result<Description, Error> Create(string description)
     {
-        if(string.IsNullOrWhiteSpace(description)||description.Length > MaxLength)
-            return "NickName cannot be null or empty";
+        if(string.IsNullOrWhiteSpace(description))
+            return Errors.General.ValueIsInvalid("Description");
         return new Description(description);
     }
 }

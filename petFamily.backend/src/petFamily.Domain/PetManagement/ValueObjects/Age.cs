@@ -1,4 +1,5 @@
-﻿using petFamily.Domain.Shared;
+﻿using CSharpFunctionalExtensions;
+using petFamily.Domain.Shared;
 
 namespace petFamily.Domain.PetManagement.ValueObjects;
 
@@ -18,12 +19,12 @@ public record Age
     public int Year { get;}
     public int Month { get; set; }
 
-    public static Result<Age> Create(int year, int month)
+    public static Result<Age, Error> Create(int year, int month)
     {
         if (year < MIN_YEAR || year > MAX_YEAR)
-            return "Year must be between " + MIN_YEAR + " and " + MAX_YEAR;
+            return Errors.General.ValueIsInvalid("Year");
         if (month < MIN_MONTH || month > MAX_MONTH)
-            return "Month must be between " + MIN_MONTH + " and " + MAX_MONTH;
+            return Errors.General.ValueIsInvalid("Month");
         return new Age(year, month);
     }
 }

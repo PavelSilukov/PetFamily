@@ -1,4 +1,5 @@
-﻿using petFamily.Domain.Shared;
+﻿using CSharpFunctionalExtensions;
+using petFamily.Domain.Shared;
 
 namespace petFamily.Domain.PetManagement.ValueObjects;
 
@@ -15,10 +16,10 @@ public record ExperienceYears
     
     public int? ExperienceYear  { get; private set; }
 
-    private static Result<ExperienceYears> Create(int? experienceYear)
+    public static Result<ExperienceYears, Error> Create(int? experienceYear)
     {
         if  (experienceYear < MinExperienceYears || experienceYear > MaxExperienceYears)
-            return "Invalid experience year";
+            return Errors.General.ValueIsInvalid("ExperienceYear");
 
         return new ExperienceYears(experienceYear);
     }

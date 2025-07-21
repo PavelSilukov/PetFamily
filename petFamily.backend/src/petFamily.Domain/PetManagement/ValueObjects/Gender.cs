@@ -1,4 +1,5 @@
-﻿using petFamily.Domain.Shared;
+﻿using CSharpFunctionalExtensions;
+using petFamily.Domain.Shared;
 
 namespace petFamily.Domain.PetManagement.ValueObjects;
 
@@ -16,13 +17,13 @@ public record Gender
         Value = value;
     }
 
-    public static Result<Gender> Create(string input)
+    public static Result<Gender, Error> Create(string input)
     {
         if (string.IsNullOrEmpty(input))
-            return "Gender is not null or empty";
+            return Errors.General.ValueIsInvalid("Gender");
         var gender = input.Trim().ToLower();
         if (_all.Any(g => g.Value.ToLower() == gender) == false)
-            return "Gender is not valid";
+            return Errors.General.ValueIsInvalid("Gender");
         return new Gender(input);
     }
 }

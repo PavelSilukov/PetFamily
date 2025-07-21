@@ -72,7 +72,7 @@ public class PetConfiguration:IEntityTypeConfiguration<Pet>
   
         //ConditionOfHealth
         builder.ComplexProperty(p=>p.ConditionOfHealth, cb=>
-            cb.Property(c=>c.Description)
+            cb.Property(c=>c.Value)
                 .IsRequired()
                 .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH)
                 .HasColumnName("Condition Of Health"));

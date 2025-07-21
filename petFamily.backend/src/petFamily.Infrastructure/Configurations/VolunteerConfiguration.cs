@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using petFamily.Domain.PetManagement.Entities;
 using petFamily.Domain.PetManagement.Enum;
@@ -32,12 +34,12 @@ public class VolunteerConfiguration:IEntityTypeConfiguration<Volunteer>
                 .HasMaxLength(100)
                 .HasColumnName("SecondName");
         });
-        
+
         builder.ComplexProperty(v => v.PhoneNumber, fb =>
             fb.Property(f => f.Number)
                 .IsRequired()
                 .HasColumnName("Phone Number"));
-        
+
         builder.ComplexProperty(v => v.Email, eb =>
             eb.Property(e => e.EmailValue)
                 .IsRequired());
@@ -47,12 +49,12 @@ public class VolunteerConfiguration:IEntityTypeConfiguration<Volunteer>
                 .IsRequired()
                 .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH)
                 .HasColumnName("Description"));
-        
-        builder.ComplexProperty(v => v.ExperienceYears, eb=>
-                eb.Property(e=>e.ExperienceYear)
-                    .IsRequired(false)
-                    .HasColumnName("ExperienceYear"));
-        
+
+        builder.ComplexProperty(v => v.ExperienceYears, eb =>
+            eb.Property(e => e.ExperienceYear)
+                .IsRequired(false)
+                .HasColumnName("ExperienceYear"));
+
         builder.ComplexProperty(v => v.Address,
             ab =>
             {
@@ -64,7 +66,7 @@ public class VolunteerConfiguration:IEntityTypeConfiguration<Volunteer>
                     .IsRequired()
                     .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH)
                     .HasColumnName("Country");
-                ab.Property(a=>a.Street)
+                ab.Property(a => a.Street)
                     .IsRequired()
                     .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH)
                     .HasColumnName("Street");
@@ -72,42 +74,52 @@ public class VolunteerConfiguration:IEntityTypeConfiguration<Volunteer>
                     .IsRequired()
                     .HasColumnName("HouseNumber");
             });
-        builder.ComplexProperty(v => v.Requisite, rb =>
+
+        builder.OwnsOne(rl => rl.RequisiteList, rj =>
         {
-            rb.Property(r => r.Title)
-                .IsRequired()
-                .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH)
-                .HasColumnName("Name of Requisite");
-            rb.Property(r => r.Description)
-                .IsRequired()
-                .HasMaxLength(Constants.MAX_HIGH_TEXT_LENGTH)
-                .HasColumnName("Description of Requisite");
-            rb.Property(r=>r.CardNumber)
-                .IsRequired()
-                .HasColumnName("Card Number");
-            rb.Property(r=>r.PaymentMethod)
-                .HasConversion(t=>t.ToString(), t => (PaymentMethod)Enum.Parse(typeof(PaymentMethod), t));
+            rj.ToJson("requisite_list");
+            rj.OwnsMany(rs =>
+                rs.Requisites, rb =>
+            {
+                rb.Property(r => r.Title)
+                    .IsRequired()
+                    .HasColumnName("title_requisite");
+                rb.Property(r => r.Description)
+                    .IsRequired()
+                    .HasColumnName("description_requisite");
+                rb.Property(r => r.CardNumber)
+                    .HasColumnType("varchar(20)")
+                    .HasColumnName("card_number_requisite");
+
+                rb.Property(r => r.PaymentMethod)
+                    .HasConversion(t => t.ToString(),
+                        t => (PaymentMethod)Enum.Parse(typeof(PaymentMethod), t));
+            });
+
         });
-        
+       
+
+        builder.OwnsOne(v => v.SocialNetList,
+            iv =>
+            {
+                iv.ToJson("social_net_list");
+                iv.OwnsMany(vs =>
+                    vs.SocialNetworks, sn =>
+                {
+                    sn.Property(s => s.Name)
+                        .IsRequired()
+                        .HasColumnName("name_social_network");
+                    sn.Property(s => s.Url)
+                        .IsRequired()
+                        .HasColumnName("url_social_network");
+                });
+            }
+        );
+
         builder.HasMany(v => v.pets)
             .WithOne()
             .HasForeignKey("VolunteerId")
             .OnDelete(DeleteBehavior.Cascade);
         builder.Navigation(v => v.pets).AutoInclude();
-            
-        builder.OwnsOne(v => v.VolunteerSocialNets,
-            iv =>
-            {
-                iv.ToJson();
-                iv.OwnsMany(vs =>
-                    vs.SocialNetworks, sn =>
-                {
-                    sn.Property(s => s.Name)
-                        .IsRequired();
-                    sn.Property(s => s.Url)
-                        .IsRequired();
-                });
-            }
-        );
     }
 }
