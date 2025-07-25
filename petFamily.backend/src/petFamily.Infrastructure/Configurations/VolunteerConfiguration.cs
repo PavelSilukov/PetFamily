@@ -52,7 +52,7 @@ public class VolunteerConfiguration:IEntityTypeConfiguration<Volunteer>
 
         builder.ComplexProperty(v => v.ExperienceYears, eb =>
             eb.Property(e => e.ExperienceYear)
-                .IsRequired(false)
+                .IsRequired()
                 .HasColumnName("ExperienceYear"));
 
         builder.ComplexProperty(v => v.Address,

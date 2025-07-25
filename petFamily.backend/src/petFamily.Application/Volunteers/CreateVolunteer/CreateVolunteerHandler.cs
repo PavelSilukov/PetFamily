@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+using FluentValidation;
 using petFamily.Domain.PetManagement.Entities;
 using petFamily.Domain.PetManagement.ValueObjects;
 using petFamily.Domain.Shared;
@@ -9,11 +10,11 @@ namespace petFamily.Application.Volunteers.CreateVolunteer;
 public class CreateVolunteerHandler
 {
     private readonly IVolunteersRepository _repository;
-    public CreateVolunteerHandler(IVolunteersRepository volunteersRepository)
-    {
-        _repository = volunteersRepository;
-    }
     
+    public CreateVolunteerHandler(IVolunteersRepository repository)
+    {
+        _repository = repository;
+    }
     public async Task<Result<Guid, Error>> Handle(
         CreateVolunteerRequest request,
         CancellationToken cancellationToken = default
@@ -36,9 +37,8 @@ public class CreateVolunteerHandler
         if (phoneNumberResult.IsFailure)
             return phoneNumberResult.Error;
 
-        var descriptionResult = Description.Create(request.Description);
-        if (descriptionResult.IsFailure)
-            return descriptionResult.Error;
+        var description = Description.Create(request.Description).Value;
+
 
         var experinceYearsResult = ExperienceYears.Create(request.ExperienceYears);
         if (experinceYearsResult.IsFailure)
@@ -78,7 +78,7 @@ public class CreateVolunteerHandler
             fullnameResult.Value,
             emailResult.Value,
             phoneNumberResult.Value,
-            descriptionResult.Value,
+            description,
             experinceYearsResult.Value,
             addressResult.Value,
             new SocialNetList(socialNets),

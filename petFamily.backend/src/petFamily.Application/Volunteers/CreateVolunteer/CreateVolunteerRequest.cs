@@ -17,5 +17,4 @@ public record CreateVolunteerRequest(
     int NumberHouse,
     IEnumerable<SocialNetsDto>  SocialNets,
     IEnumerable<RequisiteDto>  Requisites
-    
     );
