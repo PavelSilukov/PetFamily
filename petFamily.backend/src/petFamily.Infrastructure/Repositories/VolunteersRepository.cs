@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CSharpFunctionalExtensions;
+using Microsoft.EntityFrameworkCore;
 using petFamily.Application.Volunteers;
 using petFamily.Domain.PetManagement.Entities;
 using petFamily.Domain.Shared;
@@ -21,15 +22,24 @@ public class VolunteersRepository : IVolunteersRepository
         return volunteer.Id;
     }
 
-    public async Task<Result<Volunteer>> GetById(VolunteerId volunteerId)
+    public async Task<Result<Volunteer, Error>> GetById(VolunteerId volunteerId)
     {
         var volunteer = await _context.Volunteers
             .Include(v=>v.pets)
             .FirstOrDefaultAsync((v=>v.Id.Value == volunteerId));
         if (volunteer is null)
-            return "Volunteer not found";
+            return Errors.General.NotFound(volunteerId);
         return volunteer;
     }
-    
-    
+
+    public async Task<Result<Volunteer, Error>> GetByPhone(PhoneNumber phoneNumber, 
+        CancellationToken cancellationToken =default)
+    {
+        var volunteer = await _context.Volunteers
+            .Include(v=>v.pets)
+            .FirstOrDefaultAsync(v => v.PhoneNumber == phoneNumber, cancellationToken);
+        if (volunteer == null)
+            return Errors.General.NotFound();
+        return volunteer;
+    }
 }

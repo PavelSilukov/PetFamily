@@ -19,37 +19,27 @@ public class CreateVolunteerHandler
         CancellationToken cancellationToken = default
     )
     {
-        var volunteerId = VolunteerId.Create(Guid.NewGuid());
+        var fullname = FullName.Create(
+            request.FirstName, 
+            request.Surname, 
+            request.SecondName).Value;
 
-        var fullnameResult = FullName.Create(
-            request.FirstName,
-            request.Surname,
-            request.SecondName);
-        if (fullnameResult.IsFailure)
-            return fullnameResult.Error;
+        var email = Email.Create(request.Email).Value;
 
-        var emailResult = Email.Create(request.Email);
-        if (emailResult.IsFailure)
-            return emailResult.Error;
 
-        var phoneNumberResult = PhoneNumber.Create(request.PhoneNumber);
-        if (phoneNumberResult.IsFailure)
-            return phoneNumberResult.Error;
+        var phoneNumber = PhoneNumber.Create(request.PhoneNumber).Value;
 
-        var descriptionResult = Description.Create(request.Description);
-        if (descriptionResult.IsFailure)
-            return descriptionResult.Error;
 
-        var experinceYearsResult = ExperienceYears.Create(request.ExperienceYears);
-        if (experinceYearsResult.IsFailure)
-            return experinceYearsResult.Error;
+        var description = Description.Create(request.Description).Value;
+        
+
+        var experinceYears = ExperienceYears.Create(request.ExperienceYears).Value;
+
 
         var addressResult = Address.Create(
             request.Country, request.City,
-            request.Street, 
-            request.NumberHouse);
-        if (addressResult.IsFailure)
-            return addressResult.Error;
+            request.Street,
+            request.NumberHouse).Value;
         
         var socialNets = new List<SocialNet>();
         var socialNetsResult = request.SocialNets
@@ -72,15 +62,24 @@ public class CreateVolunteerHandler
             requisites.Add(r.Value);
         }
         
+        var volunteerByPhone = await _repository.GetByPhone(
+            phoneNumber,
+            cancellationToken);
+        if (volunteerByPhone.IsSuccess)
+        {
+            return Errors.Volunteer.AlredyExist();
+        }
+        
+        var volunteerId = VolunteerId.Create(Guid.NewGuid());
         
         var volunteer = new Volunteer(
             volunteerId,
-            fullnameResult.Value,
-            emailResult.Value,
-            phoneNumberResult.Value,
-            descriptionResult.Value,
-            experinceYearsResult.Value,
-            addressResult.Value,
+            fullname,
+            email,
+            phoneNumber,
+            description,
+            experinceYears,
+            addressResult,
             new SocialNetList(socialNets),
             new RequisiteList(requisites)
         );
