@@ -22,4 +22,12 @@ public static class Errors
             return Error.Validation("length.is.not.invalid", $"Invalid {label} length");
         }
     }
+
+    public static class Volunteer
+    {
+        public static Error AlredyExist()
+        {
+            return Error.Validation("record.already.exist", $"volunteer.already.exist");
+        }
+    }
 }

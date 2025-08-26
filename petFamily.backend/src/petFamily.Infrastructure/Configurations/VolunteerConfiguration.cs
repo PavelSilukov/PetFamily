@@ -120,6 +120,5 @@ public class VolunteerConfiguration:IEntityTypeConfiguration<Volunteer>
             .WithOne()
             .HasForeignKey("VolunteerId")
             .OnDelete(DeleteBehavior.Cascade);
-        builder.Navigation(v => v.pets).AutoInclude();
     }
 }

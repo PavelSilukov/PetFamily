@@ -16,7 +16,7 @@ public record ExperienceYears
     
     public int? ExperienceYear  { get; private set; }
 
-    public static Result<ExperienceYears, Error> Create(int? experienceYear)
+    public static Result<ExperienceYears, Error> Create(int experienceYear)
     {
         if  (experienceYear < MinExperienceYears || experienceYear > MaxExperienceYears)
             return Errors.General.ValueIsInvalid("ExperienceYear");
