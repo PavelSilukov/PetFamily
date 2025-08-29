@@ -1,4 +1,6 @@
-﻿namespace petFamily.Domain.Shared;
+﻿using System.Collections;
+
+namespace petFamily.Domain.Shared;
 
 public record Error
 {
@@ -6,18 +8,20 @@ public record Error
     public string Code { get;}
     public string Message { get; }
     public ErrorType Type { get; }
+    public string? InvalidField { get; } = null;
 
 
-    private Error(string code, string message, ErrorType type)
+    private Error(string code, string message, ErrorType type, string? invalidField = null)
     {
         Code = code;
         Message = message;
         Type = type;
+        InvalidField = invalidField;
     }
 
-    public static Error Validation(string code, string message)
+    public static Error Validation(string code, string message, string? invalidField = null)
     {
-        return new Error(code, message, ErrorType.Validation);
+        return new Error(code, message, ErrorType.Validation, invalidField);
     }
     
     public static Error NotFound(string code, string message)
@@ -52,6 +56,11 @@ public record Error
         }
 
         return new Error(parts[0], parts[1], type); ;
+    }
+
+    public ErrorList ToErrorList()
+    {
+        return new([this]);
     }
 }
 

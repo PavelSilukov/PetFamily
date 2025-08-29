@@ -13,11 +13,6 @@ public static class Inject
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        
-        services.AddFluentValidationAutoValidation(configuration =>
-        {
-            configuration.OverrideDefaultResultFactoryWith<CustomResultFactory>();
-        });
         return services;
     }
 }

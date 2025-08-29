@@ -3,7 +3,7 @@ using petFamily.Domain.PetManagement.Enum;
 
 namespace petFamily.Application.Volunteers.CreateVolunteer;
 
-public record CreateVolunteerRequest(
+public record CreateVolunteerCommand(
     string FirstName,
     string Surname,
     string SecondName,

@@ -5,9 +5,9 @@ using petFamily.Domain.Shared;
 
 namespace petFamily.Application.Volunteers.CreateVolunteer;
 
-public class CreateVolunteerRequestValidator:AbstractValidator<CreateVolunteerRequest>
+public class CreateVolunteerCommandValidator:AbstractValidator<CreateVolunteerCommand>
 {
-    public CreateVolunteerRequestValidator()
+    public CreateVolunteerCommandValidator()
     {
         RuleFor(fn => new
         {

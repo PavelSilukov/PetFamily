@@ -15,7 +15,7 @@ public class CreateVolunteerHandler
     }
     
     public async Task<Result<Guid, Error>> Handle(
-        CreateVolunteerRequest request,
+        CreateVolunteerCommand request,
         CancellationToken cancellationToken = default
     )
     {
